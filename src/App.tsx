@@ -6,6 +6,9 @@ import BulkInfoSearch from "./BulkInfoSearch";
 import RNDWorldPage from "./Mainheader";
 import DebounceSearch from "./DebounceSearch";
 import BulkSearchWebWorkers from "./BulkSearchWebWorkers";
+import MultipartUpload from "./MultipartUpload";
+import MultipartUploadPage from "./MultipartUpload";
+import MultipartUploadAndView from "./MultipartUploadAndView";
 
 const App = () => {
   return (
@@ -21,6 +24,7 @@ const App = () => {
           path="/bulk-search-web-workers"
           element={<BulkSearchWebWorkers />}
         />
+        <Route path="/multipart-upload" element={<MultipartUploadAndView />} />
       </Routes>
     </BrowserRouter>
   );

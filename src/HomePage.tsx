@@ -22,6 +22,12 @@ const HomePage = () => {
           >
             🚀 RND
           </button>
+          <button
+            onClick={() => navigate("/multipart-upload")}
+            className="bg-gradient-to-r from-indigo-500 to-blue-600 hover:from-blue-600 hover:to-indigo-600 text-white font-bold py-4 px-8 rounded-full text-xl transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-blue-500/25 border-0 cursor-pointer"
+          >
+            📤 MULTIPART UPLOAD
+          </button>
         </div>
       </div>
     </div>
