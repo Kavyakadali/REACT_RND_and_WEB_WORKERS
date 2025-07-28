@@ -26,7 +26,7 @@ const MultipartUploadAndView = () => {
   const API_HEADERS = {
     "Content-Type": "application/json",
     Authorization:
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3OTM1ZmNmYmU5Mzk4YWNiOGVjZDRjMSIsImVtYWlsIjoia2F2eWFrYWRhbGkyMDAzQGdtYWlsLmNvbSIsImlhdCI6MTc1MzUzMTkwNiwiZXhwIjoxNzUzNjE4MzA2fQ.aE6vaNvP7S6HgWMonR95fWSK3YaQ9Cy3BNP6CMyHBZw",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3OTM1ZmNmYmU5Mzk4YWNiOGVjZDRjMSIsImVtYWlsIjoia2F2eWFrYWRhbGkyMDAzQGdtYWlsLmNvbSIsImlhdCI6MTc1MzY2ODE3NCwiZXhwIjoxNzUzNzU0NTc0fQ.lZS0f4hU4TUzokIZFoG6v_BSMb4LiACjy8lzGBel-hw",
   };
 
   // Calculate chunk size and total chunks
