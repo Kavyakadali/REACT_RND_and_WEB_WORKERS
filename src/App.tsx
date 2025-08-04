@@ -9,6 +9,7 @@ import BulkSearchWebWorkers from "./BulkSearchWebWorkers";
 import MultipartUpload from "./MultipartUpload";
 import MultipartUploadPage from "./MultipartUpload";
 import MultipartUploadAndView from "./MultipartUploadAndView";
+import AnimationWord from "./AnimationWorld";
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
           element={<BulkSearchWebWorkers />}
         />
         <Route path="/multipart-upload" element={<MultipartUploadAndView />} />
+        <Route path="/animation-world" element={<AnimationWord />} />
       </Routes>
     </BrowserRouter>
   );
