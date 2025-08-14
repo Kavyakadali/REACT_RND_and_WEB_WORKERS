@@ -6,8 +6,7 @@ import BulkInfoSearch from "./BulkInfoSearch";
 import RNDWorldPage from "./Mainheader";
 import DebounceSearch from "./DebounceSearch";
 import BulkSearchWebWorkers from "./BulkSearchWebWorkers";
-import MultipartUpload from "./MultipartUpload";
-import MultipartUploadPage from "./MultipartUpload";
+
 import MultipartUploadAndView from "./MultipartUploadAndView";
 import AnimationWord from "./AnimationWorld";
 
