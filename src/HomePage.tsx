@@ -34,6 +34,7 @@ const HomePage = () => {
           >
             ANIMATION WORLD
           </button>
+       
         </div>
       </div>
     </div>

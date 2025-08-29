@@ -16,7 +16,7 @@ interface ImageSwiperProps {
   className?: string;
 }
 
-// Enhanced ImageSwiper component with more animations
+// Enhanced ImageSwiper component with black and white theme
 const ImageSwiper: React.FC<ImageSwiperProps> = ({
   cards,
   cardWidth = 280,
@@ -222,9 +222,9 @@ const ImageSwiper: React.FC<ImageSwiperProps> = ({
           <article
             key={card.id}
             className="image-card absolute cursor-grab active:cursor-grabbing
-                         place-self-center rounded-3xl shadow-2xl overflow-hidden 
-                         will-change-transform bg-slate-800 border border-slate-600
-                         hover:shadow-cyan-500/20 transition-shadow duration-300"
+                         place-self-center rounded-2xl shadow-2xl overflow-hidden 
+                         will-change-transform bg-gradient-to-br from-gray-800/50 to-gray-900/50
+                         backdrop-blur-lg border border-gray-700/50 hover:border-white/50"
             style={
               {
                 "--i": displayIndex.toString(),
@@ -241,6 +241,10 @@ const ImageSwiper: React.FC<ImageSwiperProps> = ({
                 scale(calc(1 - var(--i) * 0.05))
               `,
                 filter: `brightness(${1 - displayIndex * 0.1})`,
+                boxShadow:
+                  displayIndex === 0
+                    ? "0 20px 60px rgba(0,0,0,0.4), 0 0 30px rgba(255,255,255,0.1)"
+                    : "0 10px 30px rgba(0,0,0,0.3)",
               } as React.CSSProperties
             }
           >
@@ -248,30 +252,35 @@ const ImageSwiper: React.FC<ImageSwiperProps> = ({
               <img
                 src={card.imageUrl}
                 alt={card.title}
-                className="w-full h-full object-cover pointer-events-none transition-transform duration-700 group-hover:scale-110"
+                className="w-full h-full object-cover pointer-events-none transition-all duration-700 group-hover:scale-110 filter grayscale group-hover:grayscale-0"
                 draggable={false}
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
                   target.onerror = null;
-                  target.src = `https://placehold.co/${cardWidth}x${cardHeight}/2d3748/e2e8f0?text=Image+Not+Found`;
+                  target.src = `https://placehold.co/${cardWidth}x${cardHeight}/374151/ffffff?text=Image+Not+Found`;
                 }}
               />
 
-              {/* Gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              {/* Gradient overlay matching the black theme */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-gray-900/40 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
 
-              {/* Content overlay */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
-                <h3 className="font-bold text-xl text-white drop-shadow-lg mb-2 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+              {/* Content overlay with black/white theme */}
+              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black via-gray-900/80 to-transparent">
+                <h3 className="font-bold text-xl text-white drop-shadow-lg mb-2 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300 bg-gradient-to-r from-white via-gray-200 to-gray-300 bg-clip-text text-transparent">
                   {card.title}
                 </h3>
-                <p className="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 delay-100">
+                <p className="text-gray-400 text-sm opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 delay-100 group-hover:text-gray-200">
                   {card.description}
                 </p>
               </div>
 
-              {/* Shine effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></div>
+              {/* White shine effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></div>
+
+              {/* Geometric elements matching the main theme */}
+              <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                <div className="w-8 h-8 border-2 border-white/50 rounded-full animate-spin"></div>
+              </div>
             </div>
           </article>
         );
@@ -280,16 +289,24 @@ const ImageSwiper: React.FC<ImageSwiperProps> = ({
   );
 };
 
-// Main component
-const AnimationWorldsApp: React.FC = () => {
+// Main component with black and white theme
+const BlackWhiteImageSwiperApp: React.FC = () => {
   const [mounted, setMounted] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     setMounted(true);
+
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Enhanced card data with descriptions
+  // Enhanced card data matching the black theme
   const cardData: CardData[] = [
     {
       id: 1,
@@ -335,57 +352,134 @@ const AnimationWorldsApp: React.FC = () => {
     },
   ];
 
+  const generateParticles = (count = 50) => {
+    return Array.from({ length: count }, (_, i) => (
+      <div
+        key={i}
+        className="absolute rounded-full opacity-40 animate-pulse"
+        style={{
+          width: `${2 + Math.random() * 4}px`,
+          height: `${2 + Math.random() * 4}px`,
+          left: `${Math.random() * 100}%`,
+          top: `${Math.random() * 100}%`,
+          background: i % 2 === 0 ? "#ffffff" : "#d1d5db",
+          animationDelay: `${Math.random() * 3}s`,
+          animationDuration: `${2 + Math.random() * 4}s`,
+          transform: `translate(${Math.sin((scrollY + i) * 0.01) * 10}px, ${
+            Math.cos((scrollY + i) * 0.01) * 10
+          }px)`,
+        }}
+      />
+    ));
+  };
+
+  const generateFloatingShapes = () => {
+    return Array.from({ length: 8 }, (_, i) => (
+      <div
+        key={i}
+        className="absolute opacity-20 animate-spin"
+        style={{
+          width: `${20 + Math.random() * 40}px`,
+          height: `${20 + Math.random() * 40}px`,
+          left: `${Math.random() * 100}%`,
+          top: `${Math.random() * 100}%`,
+          background:
+            i % 2 === 0
+              ? `linear-gradient(${
+                  Math.random() * 360
+                }deg, rgba(255, 255, 255, 0.3), rgba(209, 213, 219, 0.3))`
+              : `linear-gradient(${
+                  Math.random() * 360
+                }deg, rgba(107, 114, 128, 0.3), rgba(75, 85, 99, 0.3))`,
+          borderRadius: Math.random() > 0.5 ? "50%" : "20%",
+          animationDuration: `${10 + Math.random() * 20}s`,
+          animationDirection: Math.random() > 0.5 ? "normal" : "reverse",
+          transform: `translate(${
+            Math.sin((scrollY + i * 100) * 0.005) * 30
+          }px, ${Math.cos((scrollY + i * 100) * 0.005) * 20}px) rotate(${
+            scrollY * 0.1 + i * 30
+          }deg)`,
+        }}
+      />
+    ));
+  };
+
   if (!mounted) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-slate-900">
+      <div className="flex items-center justify-center min-h-screen bg-black">
         <div className="relative">
-          <div className="w-20 h-20 border-4 border-cyan-500/30 border-t-cyan-500 rounded-full animate-spin"></div>
-          <div className="absolute inset-0 w-20 h-20 border-4 border-purple-500/30 border-b-purple-500 rounded-full animate-spin animation-reverse"></div>
+          <div className="w-20 h-20 border-4 border-gray-700 border-t-white rounded-full animate-spin"></div>
+          <div
+            className="absolute inset-0 w-20 h-20 border-4 border-gray-600 border-b-gray-300 rounded-full animate-spin"
+            style={{ animationDirection: "reverse" }}
+          ></div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900/20 to-cyan-900/20 text-white relative overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-radial from-cyan-500/10 to-transparent rounded-full animate-pulse floating-1"></div>
-        <div className="absolute top-3/4 right-1/4 w-80 h-80 bg-gradient-radial from-purple-500/10 to-transparent rounded-full animate-pulse floating-2"></div>
-        <div className="absolute bottom-1/4 left-1/2 w-64 h-64 bg-gradient-radial from-pink-500/10 to-transparent rounded-full animate-pulse floating-3"></div>
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-800 to-gray-900 text-white relative overflow-hidden">
+      {/* Background effects matching AnimationWorld */}
+      <div className="absolute inset-0 opacity-30">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+               linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px)`,
+            backgroundSize: "60px 60px",
+          }}
+        />
+        {generateParticles(80)}
+        {generateFloatingShapes()}
+      </div>
 
-        {/* Animated particles */}
-        <div className="particles">
-          {[...Array(15)].map((_, i) => (
-            <div
-              key={i}
-              className="particle absolute w-2 h-2 bg-cyan-400/30 rounded-full"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 5}s`,
-                animationDuration: `${3 + Math.random() * 4}s`,
-              }}
-            />
-          ))}
-        </div>
+      {/* Geometric Rings */}
+      <div className="absolute inset-0 pointer-events-none">
+        {[...Array(6)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute border-2 rounded-full opacity-20"
+            style={{
+              width: `${100 + i * 60}px`,
+              height: `${100 + i * 60}px`,
+              left: "50%",
+              top: "50%",
+              transform: `translate(-50%, -50%) rotate(${
+                scrollY * 0.1 + i * 30
+              }deg)`,
+              borderColor: i % 2 === 0 ? "#ffffff" : "#9ca3af",
+              animation: `float ${10 + i * 2}s ease-in-out infinite`,
+              animationDelay: `${i * 0.5}s`,
+            }}
+          />
+        ))}
       </div>
 
       {/* Main content */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen p-8">
-        {/* Header with enhanced animations */}
-        <div className="text-center mb-12 header-entrance">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-gradient-x">
+        {/* Header with black/white theme */}
+        <div className="text-center mb-12">
+          <h1
+            className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-gray-200 to-gray-300 bg-clip-text text-transparent"
+            style={{ textShadow: "0 0 50px rgba(255,255,255,0.5)" }}
+          >
             Animation Worlds
           </h1>
-          <p className="text-xl text-gray-300 mb-4 slide-up-delay">
+          <p
+            className="text-xl text-gray-400 mb-4"
+            style={{ textShadow: "0 0 20px rgba(255,255,255,0.2)" }}
+          >
             Swipe through mystical realms and fantasy landscapes
           </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-cyan-500 to-purple-500 mx-auto rounded-full glow-line"></div>
+          <div
+            className="w-24 h-1 bg-gradient-to-r from-white to-gray-300 mx-auto rounded-full"
+            style={{ boxShadow: "0 0 20px rgba(255,255,255,0.5)" }}
+          ></div>
         </div>
 
         {/* Centered Image Swiper */}
-        <div className="swiper-container relative">
+        <div className="relative">
           <ImageSwiper
             cards={cardData}
             cardWidth={320}
@@ -393,211 +487,130 @@ const AnimationWorldsApp: React.FC = () => {
             className="drop-shadow-2xl"
           />
 
-          {/* Navigation indicators */}
+          {/* Navigation indicators with black/white theme */}
           <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 flex space-x-3">
             {cardData.map((_, index) => (
               <div
                 key={index}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                className={`rounded-full transition-all duration-500 cursor-pointer ${
                   index === currentIndex % cardData.length
-                    ? "bg-cyan-500 scale-125 shadow-lg shadow-cyan-500/50"
-                    : "bg-gray-600 hover:bg-gray-500"
+                    ? "w-12 h-3 bg-gradient-to-r from-white to-gray-300"
+                    : "w-3 h-3 bg-white/30 hover:bg-white/60"
                 }`}
+                style={{
+                  boxShadow:
+                    index === currentIndex % cardData.length
+                      ? "0 0 20px rgba(255,255,255,0.5)"
+                      : "none",
+                }}
+                onClick={() => setCurrentIndex(index)}
               />
             ))}
           </div>
         </div>
 
-        {/* Interactive controls */}
-        {/* <div className="mt-16 flex space-x-6 control-entrance">
-          <button
-            onClick={() => swipeCard(-1)}
-            className="px-6 py-3 bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/25 active:scale-95"
-          >
-            ← Previous
-          </button>
-          <button
-            onClick={() => swipeCard(1)}
-            className="px-6 py-3 bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-400 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25 active:scale-95"
-          >
-            Next →
-          </button>
-        </div> */}
-
-        {/* Current card info display */}
-        {/* <div className="mt-8 text-center info-display max-w-md">
-          <h3 className="text-2xl font-bold text-white mb-2">
+        {/* Current card info display with theme matching */}
+        <div className="mt-16 text-center max-w-md">
+          {/* <h3 className="text-2xl font-bold text-white mb-2 bg-gradient-to-r from-white via-gray-200 to-gray-300 bg-clip-text text-transparent">
             {cardData[cardOrder[0]]?.title}
           </h3>
           <p className="text-gray-400 leading-relaxed">
             {cardData[cardOrder[0]]?.description}
-          </p>
-        </div> */}
+          </p> */}
+        </div>
       </div>
 
-      {/* Enhanced CSS Animations */}
+      {/* Enhanced CSS Animations matching the black theme */}
       <style>{`
-        @keyframes gradient-x {
+        @keyframes float {
           0%, 100% {
-            background-size: 200% 200%;
-            background-position: left center;
-          }
-          50% {
-            background-size: 200% 200%;
-            background-position: right center;
-          }
-        }
-
-        @keyframes floating-1 {
-          0%, 100% { transform: translate(0, 0) rotate(0deg); }
-          33% { transform: translate(30px, -30px) rotate(120deg); }
-          66% { transform: translate(-20px, 20px) rotate(240deg); }
-        }
-
-        @keyframes floating-2 {
-          0%, 100% { transform: translate(0, 0) rotate(0deg); }
-          33% { transform: translate(-25px, -25px) rotate(-120deg); }
-          66% { transform: translate(25px, 25px) rotate(-240deg); }
-        }
-
-        @keyframes floating-3 {
-          0%, 100% { transform: translate(0, 0) rotate(0deg); }
-          50% { transform: translate(15px, -15px) rotate(180deg); }
-        }
-
-        @keyframes particle-float {
-          0%, 100% { 
             transform: translateY(0px) rotate(0deg);
-            opacity: 0.3;
-          }
-          50% { 
-            transform: translateY(-20px) rotate(180deg);
-            opacity: 0.8;
-          }
-        }
-
-        @keyframes header-entrance {
-          0% {
-            opacity: 0;
-            transform: translateY(-50px) scale(0.8);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
-        }
-
-        @keyframes slide-up-delay {
-          0% {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes swiper-entrance {
-          0% {
-            opacity: 0;
-            transform: scale(0.8) rotateY(45deg);
-          }
-          100% {
-            opacity: 1;
-            transform: scale(1) rotateY(0deg);
-          }
-        }
-
-        @keyframes control-entrance {
-          0% {
-            opacity: 0;
-            transform: translateY(40px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes glow-pulse {
-          0%, 100% {
-            box-shadow: 0 0 5px currentColor;
           }
           50% {
-            box-shadow: 0 0 20px currentColor, 0 0 30px currentColor;
+            transform: translateY(-20px) rotate(10deg);
           }
         }
 
-        .animate-gradient-x {
-          animation: gradient-x 3s ease infinite;
+        @keyframes glitch {
+          0%, 100% {
+            transform: translate(0, 0);
+          }
+          10% {
+            transform: translate(-2px, -2px);
+          }
+          20% {
+            transform: translate(2px, 2px);
+          }
+          30% {
+            transform: translate(-2px, 2px);
+          }
+          40% {
+            transform: translate(2px, -2px);
+          }
+          50% {
+            transform: translate(-2px, -2px);
+          }
+          60% {
+            transform: translate(2px, 2px);
+          }
+          70% {
+            transform: translate(-2px, 2px);
+          }
+          80% {
+            transform: translate(2px, -2px);
+          }
+          90% {
+            transform: translate(-2px, -2px);
+          }
         }
 
-        .floating-1 {
-          animation: floating-1 8s ease-in-out infinite;
-        }
-
-        .floating-2 {
-          animation: floating-2 6s ease-in-out infinite;
-        }
-
-        .floating-3 {
-          animation: floating-3 10s ease-in-out infinite;
-        }
-
-        .particle {
-          animation: particle-float 4s ease-in-out infinite;
-        }
-
-        .header-entrance {
-          animation: header-entrance 1s ease-out;
-        }
-
-        .slide-up-delay {
-          animation: slide-up-delay 0.8s ease-out 0.3s both;
-        }
-
-        .swiper-container {
-          animation: swiper-entrance 1s ease-out 0.6s both;
-        }
-
-        .control-entrance {
-          animation: control-entrance 0.8s ease-out 1s both;
-        }
-
-        .info-display {
-          animation: slide-up-delay 0.8s ease-out 1.2s both;
-        }
-
-        .glow-line {
-          animation: glow-pulse 2s ease-in-out infinite;
-        }
-
-        .animation-reverse {
-          animation-direction: reverse;
-        }
-
-        .bg-gradient-radial {
-          background: radial-gradient(circle, var(--tw-gradient-stops));
-        }
-
-        /* Enhanced card hover effects */
+        /* Enhanced card hover effects for black theme */
         .image-card:first-child {
           box-shadow: 
-            0 25px 50px -12px rgba(0, 0, 0, 0.5),
-            0 0 0 1px rgba(255, 255, 255, 0.05),
-            0 0 40px rgba(6, 182, 212, 0.1);
+            0 25px 50px -12px rgba(0, 0, 0, 0.8),
+            0 0 0 1px rgba(255, 255, 255, 0.1),
+            0 0 40px rgba(255, 255, 255, 0.1);
         }
 
         .image-card:first-child:hover {
           box-shadow: 
-            0 35px 60px -12px rgba(0, 0, 0, 0.6),
-            0 0 0 1px rgba(255, 255, 255, 0.1),
-            0 0 60px rgba(6, 182, 212, 0.2);
+            0 35px 60px -12px rgba(0, 0, 0, 0.9),
+            0 0 0 1px rgba(255, 255, 255, 0.2),
+            0 0 60px rgba(255, 255, 255, 0.2);
+          transform: 
+            translateY(calc(var(--i) * 12px))
+            translateZ(calc(var(--i) * -60px))
+            translateX(var(--swipe-x))
+            rotate(var(--swipe-rotate))
+            scale(calc(1 - var(--i) * 0.05))
+            translateY(-8px) !important;
+        }
+
+        /* Smooth scroll behavior */
+        html {
+          scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+          width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+          background: #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+          background: linear-gradient(180deg, #ffffff, #9ca3af);
+          border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+          background: linear-gradient(180deg, #f9fafb, #d1d5db);
         }
       `}</style>
     </div>
   );
 };
 
-export default AnimationWorldsApp;
+export default BlackWhiteImageSwiperApp;

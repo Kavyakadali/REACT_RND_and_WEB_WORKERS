@@ -1,7 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
-import TrendyUserProfiles from "./TrendyUserProfiles";
-import AnimationWorlds from "./ImageSwiper";
-import NftMarketplace from "./NftMarketplace";
+// import TrendyUserProfiles from "./TrendyUserProfiles";
+// import AnimationWorlds from "./ImageSwiper";
+// import NftMarketplace from "./NftMarketplace";
+import { useNavigate } from "react-router-dom";
+import ScrollZoomSection from "./ScrollZoomSection";
+import HeroSection from "./HeroSection";
+import FeatureShowcase from "./FeatureShowcase";
+import BlackWhiteImageSwiperApp from "./ImageSwiper";
+import EnhancedFeaturedProjects from "./EnhancedFeaturedProjects";
 
 const AnimationWorld = () => {
   const [currentPhase, setCurrentPhase] = useState(0);
@@ -12,31 +18,31 @@ const AnimationWorld = () => {
   const [visibleElements, setVisibleElements] = useState(new Set<number>());
   const containerRef = useRef<HTMLDivElement>(null);
   const sectionsRef = useRef<(HTMLElement | null)[]>([]);
-
+  const navigate = useNavigate();
   const phases = [
     {
       title: "Welcome to our",
       subtitle: "ANIMATION WORLD",
       description: "Where creativity meets motion",
-      gradient: "from-purple-600 via-pink-600 to-red-600",
+      gradient: "from-black via-gray-800 to-gray-900",
     },
     {
       title: "Journey began in",
       subtitle: "2010",
       description: "Pioneering digital experiences",
-      gradient: "from-blue-600 via-cyan-600 to-teal-600",
+      gradient: "from-gray-900 via-gray-700 to-black",
     },
     {
       title: "Evolved through",
       subtitle: "INNOVATION",
       description: "Pushing creative boundaries",
-      gradient: "from-green-600 via-emerald-600 to-blue-600",
+      gradient: "from-black via-gray-600 to-gray-800",
     },
     {
       title: "Creating the",
       subtitle: "FUTURE",
       description: "One animation at a time",
-      gradient: "from-yellow-600 via-orange-600 to-red-600",
+      gradient: "from-gray-800 via-gray-900 to-black",
     },
   ];
 
@@ -84,37 +90,37 @@ const AnimationWorld = () => {
       name: "Cosmic Journey",
       year: "2024",
       type: "3D Animation",
-      color: "from-purple-500 to-pink-500",
+      color: "from-gray-700 to-gray-900",
     },
     {
       name: "Digital Dreams",
       year: "2023",
       type: "Motion Graphics",
-      color: "from-blue-500 to-cyan-500",
+      color: "from-gray-600 to-black",
     },
     {
       name: "Future Vision",
       year: "2023",
       type: "UI/UX",
-      color: "from-green-500 to-emerald-500",
+      color: "from-black to-gray-700",
     },
     {
       name: "Brand Orbit",
       year: "2022",
       type: "Branding",
-      color: "from-orange-500 to-red-500",
+      color: "from-gray-800 to-gray-600",
     },
     {
       name: "Interactive Space",
       year: "2022",
       type: "Web Experience",
-      color: "from-indigo-500 to-purple-500",
+      color: "from-gray-900 to-black",
     },
     {
       name: "Visual Symphony",
       year: "2021",
       type: "VFX",
-      color: "from-pink-500 to-rose-500",
+      color: "from-black to-gray-800",
     },
   ];
 
@@ -205,7 +211,7 @@ const AnimationWorld = () => {
           height: `${2 + Math.random() * 4}px`,
           left: `${Math.random() * 100}%`,
           top: `${Math.random() * 100}%`,
-          background: `hsl(${Math.random() * 360}, 70%, 70%)`,
+          background: i % 2 === 0 ? "#ffffff" : "#d1d5db",
           animationDelay: `${Math.random() * 3}s`,
           animationDuration: `${2 + Math.random() * 4}s`,
           transform: `translate(${Math.sin((scrollY + i) * 0.01) * 10}px, ${
@@ -226,9 +232,14 @@ const AnimationWorld = () => {
           height: `${20 + Math.random() * 40}px`,
           left: `${Math.random() * 100}%`,
           top: `${Math.random() * 100}%`,
-          background: `linear-gradient(${
-            Math.random() * 360
-          }deg, rgba(147, 51, 234, 0.3), rgba(219, 39, 119, 0.3))`,
+          background:
+            i % 2 === 0
+              ? `linear-gradient(${
+                  Math.random() * 360
+                }deg, rgba(255, 255, 255, 0.3), rgba(209, 213, 219, 0.3))`
+              : `linear-gradient(${
+                  Math.random() * 360
+                }deg, rgba(107, 114, 128, 0.3), rgba(75, 85, 99, 0.3))`,
           borderRadius: Math.random() > 0.5 ? "50%" : "20%",
           animationDuration: `${10 + Math.random() * 20}s`,
           animationDirection: Math.random() > 0.5 ? "normal" : "reverse",
@@ -334,12 +345,12 @@ const AnimationWorld = () => {
         }
 
         ::-webkit-scrollbar-thumb {
-          background: linear-gradient(180deg, #9333ea, #ec4899);
+          background: linear-gradient(180deg, #ffffff, #9ca3af);
           border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-          background: linear-gradient(180deg, #a855f7, #f472b6);
+          background: linear-gradient(180deg, #f9fafb, #d1d5db);
         }
       `}</style>
 
@@ -358,7 +369,7 @@ const AnimationWorld = () => {
       {/* Animated Progress Bar */}
       <div className="fixed top-0 left-0 w-full h-1 bg-gray-900 z-50">
         <div
-          className="h-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-300 ease-out"
+          className="h-full bg-gradient-to-r from-white to-gray-300 transition-all duration-300 ease-out"
           style={{
             width: `${
               (scrollY / (document.body.scrollHeight - window.innerHeight)) *
@@ -387,7 +398,7 @@ const AnimationWorld = () => {
                 <div
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${
                     activeSection === index
-                      ? "bg-gradient-to-r from-pink-500 to-purple-500"
+                      ? "bg-gradient-to-r from-white to-gray-300"
                       : "bg-gray-600 hover:bg-gray-400"
                   }`}
                 />
@@ -432,7 +443,7 @@ const AnimationWorld = () => {
                 transform: `translate(-50%, -50%) rotate(${
                   scrollY * 0.1 + i * 30
                 }deg)`,
-                borderColor: `hsl(${(scrollY * 0.1 + i * 60) % 360}, 70%, 60%)`,
+                borderColor: i % 2 === 0 ? "#ffffff" : "#9ca3af",
                 animation: `float ${10 + i * 2}s ease-in-out infinite`,
                 animationDelay: `${i * 0.5}s`,
               }}
@@ -469,7 +480,7 @@ const AnimationWorld = () => {
 
             {/* Glitch layers */}
             <h2
-              className="absolute inset-0 text-4xl md:text-6xl lg:text-8xl font-bold text-red-400 opacity-20 mix-blend-multiply"
+              className="absolute inset-0 text-4xl md:text-6xl lg:text-8xl font-bold text-gray-300 opacity-20 mix-blend-multiply"
               style={{
                 animation: "glitch 3s infinite",
               }}
@@ -477,7 +488,7 @@ const AnimationWorld = () => {
               {phases[currentPhase].subtitle}
             </h2>
             <h2
-              className="absolute inset-0 text-4xl md:text-6xl lg:text-8xl font-bold text-cyan-400 opacity-20 mix-blend-screen"
+              className="absolute inset-0 text-4xl md:text-6xl lg:text-8xl font-bold text-gray-400 opacity-20 mix-blend-screen"
               style={{
                 animation: "glitch 3s infinite reverse",
               }}
@@ -507,7 +518,7 @@ const AnimationWorld = () => {
                 key={index}
                 className={`rounded-full transition-all duration-500 cursor-pointer ${
                   index === currentPhase
-                    ? "w-12 h-3 bg-gradient-to-r from-pink-500 to-purple-500"
+                    ? "w-12 h-3 bg-gradient-to-r from-white to-gray-300"
                     : "w-3 h-3 bg-white/30 hover:bg-white/60"
                 }`}
                 onClick={() => setCurrentPhase(index)}
@@ -530,7 +541,7 @@ const AnimationWorld = () => {
               }
             >
               <span className="relative z-10">EXPLORE SERVICES</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 transform scale-0 group-hover:scale-100 transition-transform duration-500 rounded-full opacity-90" />
+              <div className="absolute inset-0 bg-gradient-to-r from-white to-gray-300 transform scale-0 group-hover:scale-100 transition-transform duration-500 rounded-full opacity-90" />
             </button>
 
             <button
@@ -573,7 +584,7 @@ const AnimationWorld = () => {
           <div className="text-center mb-16">
             <h2
               data-reveal
-              className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent"
+              className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-gray-300 to-gray-200 bg-clip-text text-transparent"
             >
               OUR SERVICES
             </h2>
@@ -594,7 +605,7 @@ const AnimationWorld = () => {
               <div
                 key={service.title}
                 data-reveal
-                className="group relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-lg border border-gray-700/50 rounded-2xl p-6 hover:border-purple-500/50 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 overflow-hidden"
+                className="group relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-lg border border-gray-700/50 rounded-2xl p-6 hover:border-white/50 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 overflow-hidden"
                 style={{
                   transform: `translateY(${
                     visibleElements.has(index + 1) ? 0 : 60
@@ -608,7 +619,7 @@ const AnimationWorld = () => {
                   {service.icon}
                 </div>
 
-                <h3 className="text-xl font-bold mb-4 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-pink-400 transition-all duration-500">
+                <h3 className="text-xl font-bold mb-4 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-300 transition-all duration-500">
                   {service.title}
                 </h3>
 
@@ -617,11 +628,11 @@ const AnimationWorld = () => {
                 </p>
 
                 <div className="flex items-center justify-between">
-                  <span className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                  <span className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
                     {service.count}
                   </span>
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 flex items-center justify-center group-hover:from-purple-500 group-hover:to-pink-500 transition-all duration-500 transform group-hover:scale-110">
-                    <span className="text-purple-400 group-hover:text-white transition-colors duration-300">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-r from-white/20 to-gray-300/20 flex items-center justify-center group-hover:from-white group-hover:to-gray-300 transition-all duration-500 transform group-hover:scale-110">
+                    <span className="text-white/60 group-hover:text-black transition-colors duration-300">
                       →
                     </span>
                   </div>
@@ -631,117 +642,13 @@ const AnimationWorld = () => {
           </div>
         </div>
       </section>
-
+      {/* <EnhancedMacBookAnimation /> */}
+      <HeroSection />
+      <ScrollZoomSection />
+      <FeatureShowcase />
       {/* Projects Section */}
-      <section
-        ref={(el) => (sectionsRef.current[2] = el)}
-        className="py-20 bg-black relative overflow-hidden"
-      >
-        <div className="absolute inset-0">{generateParticles(100)}</div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <h2 className="text-4xl md:text-6xl font-bold text-center mb-16 text-white">
-            <span className="bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 bg-clip-text text-transparent">
-              FEATURED PROJECTS
-            </span>
-          </h2>
-
-          <div className="relative">
-            <div
-              className="flex space-x-6 transition-transform duration-1000 ease-out"
-              style={{
-                transform: `translateX(-${
-                  (scrollY * 0.5) % (projects.length * 300)
-                }px)`,
-              }}
-            >
-              {[...projects, ...projects].map((project, index) => (
-                <div
-                  key={`${project.name}-${index}`}
-                  className={`flex-shrink-0 w-72 h-80 rounded-2xl bg-gradient-to-br ${project.color} p-6 flex flex-col justify-between transform hover:scale-105 hover:-translate-y-4 transition-all duration-500 relative overflow-hidden group cursor-pointer`}
-                  style={{
-                    boxShadow: "0 20px 60px rgba(0,0,0,0.4)",
-                  }}
-                >
-                  <div>
-                    <span className="text-sm font-semibold opacity-80 px-2 py-1 rounded-full bg-white/20 backdrop-blur-sm">
-                      {project.year}
-                    </span>
-                    <h3 className="text-2xl font-bold mt-4 mb-2 group-hover:scale-105 transition-transform duration-300">
-                      {project.name}
-                    </h3>
-                    <p className="text-base opacity-90">{project.type}</p>
-                  </div>
-
-                  <div className="w-full h-24 bg-black/20 rounded-xl backdrop-blur-sm flex items-center justify-center group-hover:bg-black/30 transition-all duration-300">
-                    <span className="text-4xl group-hover:scale-125 group-hover:rotate-12 transition-all duration-500">
-                      🎨
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section
-        ref={(el) => (sectionsRef.current[3] = el)}
-        className="py-20 bg-gradient-to-r from-purple-900 via-pink-900 to-indigo-900 relative overflow-hidden"
-      >
-        <div className="absolute inset-0">
-          {generateFloatingShapes()}
-          {generateParticles(60)}
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            {[
-              {
-                number: "1500+",
-                label: "Projects Completed",
-                color: "from-yellow-400 to-orange-500",
-              },
-              {
-                number: "500+",
-                label: "Happy Clients",
-                color: "from-green-400 to-blue-500",
-              },
-              {
-                number: "15+",
-                label: "Years Experience",
-                color: "from-purple-400 to-pink-500",
-              },
-              {
-                number: "50+",
-                label: "Awards Won",
-                color: "from-red-400 to-yellow-500",
-              },
-            ].map((stat, index) => (
-              <div
-                key={stat.label}
-                data-reveal
-                className="transform hover:scale-125 transition-all duration-500 group cursor-pointer"
-                style={{
-                  opacity: visibleElements.has(index + 10) ? 1 : 0,
-                  transitionDelay: `${index * 200}ms`,
-                }}
-              >
-                <div
-                  className={`text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r ${stat.color} bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-500`}
-                >
-                  {stat.number}
-                </div>
-                <div className="text-base text-purple-200 group-hover:text-white transition-colors duration-300">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
+      {/*  */}
+      <EnhancedFeaturedProjects />
       {/* Testimonials Section */}
       <section
         ref={(el) => (sectionsRef.current[4] = el)}
@@ -749,60 +656,32 @@ const AnimationWorld = () => {
       >
         <div className="absolute inset-0">{generateFloatingShapes()}</div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <h2 className="text-4xl md:text-6xl font-bold text-center mb-16 text-white">
-            <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-              CLIENT STORIES
-            </span>
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <AnimationWorlds />
-          </div>
+        <div className="">
+          <BlackWhiteImageSwiperApp />
         </div>
       </section>
-      <TrendyUserProfiles />
+      {/* <TrendyUserProfiles /> */}
       {/* Contact Section */}
       <section
         ref={(el) => (sectionsRef.current[5] = el)}
-        className="py-20 bg-gradient-to-t from-purple-900 via-pink-900 to-black relative overflow-hidden"
+        className="py-20 bg-gradient-to-t from-gray-900 via-black to-gray-800 relative overflow-hidden"
       >
         {/* Background Animation */}
-        <div className="absolute inset-0">
-          {generateParticles(150)}
-          {generateFloatingShapes()}
-        </div>
+        <div className="absolute inset-0">{generateParticles(50)}</div>
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h2 className="text-4xl md:text-7xl font-bold mb-8 text-white relative">
-            <span className="bg-gradient-to-r from-yellow-400 via-red-500 to-purple-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-white via-gray-200 to-gray-300 bg-clip-text text-transparent">
               LET'S CREATE MAGIC
             </span>
 
             {/* Floating Magic Sparkles */}
-            {Array.from({ length: 6 }, (_, i) => (
-              <div
-                key={i}
-                className="absolute text-xl opacity-70"
-                style={{
-                  left: `${10 + Math.random() * 80}%`,
-                  top: `${-20 + Math.random() * 40}%`,
-                  color: `hsl(${(i * 60) % 360}, 70%, 70%)`,
-                  animation: `float ${
-                    2 + Math.random() * 2
-                  }s ease-in-out infinite`,
-                  animationDelay: `${i * 0.3}s`,
-                }}
-              >
-                ✨
-              </div>
-            ))}
           </h2>
 
           <p className="text-lg text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed">
             Ready to bring your vision to life? Let's collaborate and create
             something
-            <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent font-semibold">
+            <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent font-semibold">
               {" "}
               extraordinary{" "}
             </span>
@@ -810,9 +689,12 @@ const AnimationWorld = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-12">
-            <button className="group relative px-12 py-6 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 rounded-full text-white font-bold text-lg overflow-hidden transform hover:scale-110 transition-all duration-500">
+            <button
+              className="group relative px-12 py-6 bg-gradient-to-r from-white via-gray-200 to-gray-300 rounded-full text-black font-bold text-lg overflow-hidden transform hover:scale-110 transition-all duration-500"
+              onClick={() => navigate("/animation-words")}
+            >
               <span className="relative z-10">START PROJECT</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-white/40 transform -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+              <div className="absolute inset-0 bg-gradient-to-r from-gray-200/20 to-gray-400/40 transform -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
             </button>
 
             <button className="group relative px-12 py-6 border-2 border-white/30 rounded-full text-white font-bold text-lg hover:bg-white hover:text-black transform hover:scale-110 transition-all duration-500 backdrop-blur-sm overflow-hidden">
@@ -835,7 +717,7 @@ const AnimationWorld = () => {
                 <div className="text-3xl mb-3 group-hover:scale-125 group-hover:rotate-12 transition-all duration-500">
                   {contact.icon}
                 </div>
-                <h3 className="text-base font-bold text-white mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-pink-400 transition-all duration-500">
+                <h3 className="text-base font-bold text-white mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-300 transition-all duration-500">
                   {contact.title}
                 </h3>
                 <p className="text-gray-400 group-hover:text-gray-200 transition-colors duration-300 text-sm">
@@ -847,7 +729,7 @@ const AnimationWorld = () => {
         </div>
       </section>
 
-      <NftMarketplace />
+      {/* <NftMarketplace /> */}
     </div>
   );
 };
