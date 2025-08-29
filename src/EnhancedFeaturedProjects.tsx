@@ -277,7 +277,7 @@ const EnhancedFeaturedProjects = () => {
 
                   {/* Center content */}
                   <div className="relative flex items-center space-x-3">
-                    g<div className="opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-x-4 group-hover:translate-x-0">
+                    <div className="opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-x-4 group-hover:translate-x-0">
                       <div className="text-white font-semibold text-sm">
                         VIEW PROJECT
                       </div>

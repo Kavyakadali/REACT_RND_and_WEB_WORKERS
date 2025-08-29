@@ -8,6 +8,7 @@ import HeroSection from "./HeroSection";
 import FeatureShowcase from "./FeatureShowcase";
 import BlackWhiteImageSwiperApp from "./ImageSwiper";
 import EnhancedFeaturedProjects from "./EnhancedFeaturedProjects";
+import TrendyUserProfiles from "./TrendyUserProfiles";
 
 const AnimationWorld = () => {
   const [currentPhase, setCurrentPhase] = useState(0);
@@ -660,7 +661,7 @@ const AnimationWorld = () => {
           <BlackWhiteImageSwiperApp />
         </div>
       </section>
-      {/* <TrendyUserProfiles /> */}
+      <TrendyUserProfiles />
       {/* Contact Section */}
       <section
         ref={(el) => (sectionsRef.current[5] = el)}
