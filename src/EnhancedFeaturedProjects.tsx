@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 const EnhancedFeaturedProjects = () => {
   const [scrollY, setScrollY] = useState(0);
   const [visibleElements, setVisibleElements] = useState(new Set());
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const projects = [
     {
@@ -98,6 +99,14 @@ const EnhancedFeaturedProjects = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handlePrevious = () => {
+    setCurrentIndex((prev) => (prev === 0 ? projects.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev === projects.length - 1 ? 0 : prev + 1));
+  };
+
   const generateParticles = (count = 100) => {
     return Array.from({ length: count }, (_, i) => (
       <div
@@ -182,16 +191,14 @@ const EnhancedFeaturedProjects = () => {
           <div
             className="flex space-x-6 transition-transform duration-1000 ease-out pb-8"
             style={{
-              transform: `translateX(-${
-                (scrollY * 0.5) % (projects.length * 300)
-              }px)`,
+              transform: `translateX(-${currentIndex * 300}px)`,
             }}
           >
             {[...projects, ...projects].map((project, index) => (
               <div
                 key={`${project.name}-${index}`}
                 data-reveal
-                className={`flex-shrink-0 w-72 h-80 rounded-2xl bg-gradient-to-br ${project.color} p-6 flex flex-col justify-between transform hover:scale-105 hover:-translate-y-4 transition-all duration-500 relative overflow-hidden group cursor-pointer border border-white/20 backdrop-blur-sm`}
+                className={`flex-shrink-0 w-72 h-80 rounded-2xl bg-gradient-to-br ${project.color} p-6 flex flex-col justify-between transition-all duration-500 relative overflow-hidden group cursor-pointer border border-white/20 backdrop-blur-sm hover:z-50`}
                 style={{
                   boxShadow:
                     "0 20px 60px rgba(0,0,0,0.4), 0 0 30px rgba(255,255,255,0.05)",
@@ -222,7 +229,7 @@ const EnhancedFeaturedProjects = () => {
                     alt={project.name}
                     className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110"
                     onError={(e) => {
-                      const target = e.target as HTMLImageElement;
+                      const target = e.target;
                       target.style.display = "none";
                     }}
                   />
@@ -233,7 +240,7 @@ const EnhancedFeaturedProjects = () => {
 
                 {/* Animated border glow */}
                 <div
-                  className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 "
                   style={{
                     background:
                       "linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%)",
@@ -329,7 +336,10 @@ const EnhancedFeaturedProjects = () => {
 
           {/* Navigation arrows */}
           <div className="absolute top-1/2 -left-6 transform -translate-y-1/2 z-20">
-            <button className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/30 flex items-center justify-center text-white hover:bg-white/20 hover:scale-110 transition-all duration-300 group">
+            <button
+              onClick={handlePrevious}
+              className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/30 flex items-center justify-center text-white hover:bg-white/20 hover:scale-110 transition-all duration-300 group"
+            >
               <span className="transform group-hover:-translate-x-1 transition-transform duration-300">
                 ←
               </span>
@@ -337,7 +347,10 @@ const EnhancedFeaturedProjects = () => {
           </div>
 
           <div className="absolute top-1/2 -right-6 transform -translate-y-1/2 z-20">
-            <button className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/30 flex items-center justify-center text-white hover:bg-white/20 hover:scale-110 transition-all duration-300 group">
+            <button
+              onClick={handleNext}
+              className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/30 flex items-center justify-center text-white hover:bg-white/20 hover:scale-110 transition-all duration-300 group"
+            >
               <span className="transform group-hover:translate-x-1 transition-transform duration-300">
                 →
               </span>
@@ -349,18 +362,16 @@ const EnhancedFeaturedProjects = () => {
             {projects.map((_, i) => (
               <div
                 key={i}
-                className="w-2 h-2 rounded-full bg-white/30 transition-all duration-500"
+                className="w-2 h-2 rounded-full bg-white/30 transition-all duration-500 cursor-pointer"
+                onClick={() => setCurrentIndex(i)}
                 style={{
                   background:
-                    i === Math.floor((scrollY * 0.1) % projects.length)
+                    i === currentIndex
                       ? "linear-gradient(90deg, #ffffff, #d1d5db)"
                       : "rgba(255,255,255,0.3)",
-                  transform:
-                    i === Math.floor((scrollY * 0.1) % projects.length)
-                      ? "scale(1.5)"
-                      : "scale(1)",
+                  transform: i === currentIndex ? "scale(1.5)" : "scale(1)",
                   boxShadow:
-                    i === Math.floor((scrollY * 0.1) % projects.length)
+                    i === currentIndex
                       ? "0 0 10px rgba(255,255,255,0.5)"
                       : "none",
                 }}
@@ -404,9 +415,21 @@ const EnhancedFeaturedProjects = () => {
           animation: float 2s ease-in-out infinite;
         }
 
-        /* Enhanced card glow on hover */
+        /* Enhanced card hover effects */
         .group:hover {
-          filter: drop-shadow(0 0 20px rgba(255,255,255,0.1));
+          filter: drop-shadow(0 0 30px rgba(255,255,255,0.2));
+          transform: scale(1.15) translateY(-20px) !important;
+          z-index: 50;
+        }
+
+        /* Ensure hovered card comes to front */
+        .group {
+          position: relative;
+          z-index: 1;
+        }
+
+        .group:hover {
+          z-index: 50 !important;
         }
 
         /* Smooth scroll behavior */

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
-const TrendyUserProfiles = () => {
+const BlackWhiteUserProfiles = () => {
   const [activeUser, setActiveUser] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -15,7 +15,6 @@ const TrendyUserProfiles = () => {
       company: "Digital Dreams Studio",
       avatar:
         "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
-      gradient: "from-purple-500 via-pink-500 to-red-500",
       skills: ["UI/UX Design", "3D Modeling", "Brand Strategy"],
       rating: 4.9,
       projects: 127,
@@ -30,7 +29,6 @@ const TrendyUserProfiles = () => {
       company: "Pixel Perfect Co.",
       avatar:
         "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=150&h=150&fit=crop&crop=face",
-      gradient: "from-cyan-500 via-blue-500 to-purple-500",
       skills: ["After Effects", "Cinema 4D", "Animation"],
       rating: 4.8,
       projects: 89,
@@ -45,7 +43,6 @@ const TrendyUserProfiles = () => {
       company: "Tech Innovators",
       avatar:
         "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
-      gradient: "from-green-500 via-teal-500 to-blue-500",
       skills: ["React", "Node.js", "WebGL"],
       rating: 4.7,
       projects: 156,
@@ -60,7 +57,6 @@ const TrendyUserProfiles = () => {
       company: "Human Labs",
       avatar:
         "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
-      gradient: "from-pink-500 via-rose-500 to-orange-500",
       skills: ["User Research", "Prototyping", "Data Analysis"],
       rating: 4.9,
       projects: 73,
@@ -75,7 +71,6 @@ const TrendyUserProfiles = () => {
       company: "Vertex Studios",
       avatar:
         "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
-      gradient: "from-indigo-500 via-purple-500 to-pink-500",
       skills: ["Blender", "Substance Painter", "Unreal Engine"],
       rating: 4.6,
       projects: 94,
@@ -90,7 +85,6 @@ const TrendyUserProfiles = () => {
       company: "Creative Collective",
       avatar:
         "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=150&h=150&fit=crop&crop=face",
-      gradient: "from-yellow-500 via-orange-500 to-red-500",
       skills: ["Brand Identity", "Typography", "Illustration"],
       rating: 4.8,
       projects: 112,
@@ -138,22 +132,22 @@ const TrendyUserProfiles = () => {
   }, [users.length]);
 
   const getStatusColor = (status: string) => {
-    return status === "Available" ? "bg-green-500" : "bg-orange-500";
+    return status === "Available" ? "bg-white" : "bg-gray-400";
   };
 
   const generateFloatingElements = () => {
-    return Array.from({ length: 12 }, (_, i) => (
+    return Array.from({ length: 8 }, (_, i) => (
       <div
         key={i}
-        className="absolute opacity-30"
+        className="absolute opacity-10"
         style={{
           left: `${Math.random() * 100}%`,
           top: `${Math.random() * 100}%`,
-          width: `${8 + Math.random() * 16}px`,
-          height: `${8 + Math.random() * 16}px`,
-          background: `hsl(${Math.random() * 360}, 70%, 60%)`,
-          borderRadius: Math.random() > 0.5 ? "50%" : "20%",
-          animation: `float ${3 + Math.random() * 4}s ease-in-out infinite`,
+          width: `${6 + Math.random() * 12}px`,
+          height: `${6 + Math.random() * 12}px`,
+          background: Math.random() > 0.5 ? "#ffffff" : "#888888",
+          borderRadius: Math.random() > 0.5 ? "50%" : "10%",
+          animation: `float ${4 + Math.random() * 3}s ease-in-out infinite`,
           animationDelay: `${Math.random() * 2}s`,
         }}
       />
@@ -163,14 +157,14 @@ const TrendyUserProfiles = () => {
   return (
     <div
       ref={containerRef}
-      className="py-20 bg-gradient-to-br from-gray-900 via-purple-900 to-pink-900 relative overflow-hidden"
+      className="py-20 bg-gradient-to-br from-black via-gray-900 to-gray-800 relative overflow-hidden"
     >
       {/* Custom Styles */}
       <style>{`
         @keyframes float {
           0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
-          33% { transform: translateY(-15px) rotate(120deg) scale(1.1); }
-          66% { transform: translateY(-5px) rotate(240deg) scale(0.9); }
+          33% { transform: translateY(-12px) rotate(90deg) scale(1.05); }
+          66% { transform: translateY(-4px) rotate(180deg) scale(0.95); }
         }
 
         @keyframes slideIn {
@@ -180,12 +174,17 @@ const TrendyUserProfiles = () => {
 
         @keyframes glow {
           0%, 100% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.1); }
-          50% { box-shadow: 0 0 40px rgba(255, 255, 255, 0.3); }
+          50% { box-shadow: 0 0 30px rgba(255, 255, 255, 0.2); }
         }
 
         @keyframes ripple {
-          0% { transform: scale(1); opacity: 1; }
-          100% { transform: scale(2); opacity: 0; }
+          0% { transform: scale(1); opacity: 0.8; }
+          100% { transform: scale(1.8); opacity: 0; }
+        }
+
+        @keyframes shimmer {
+          0% { background-position: -200px 0; }
+          100% { background-position: 200px 0; }
         }
 
         .card-hover:hover {
@@ -195,13 +194,19 @@ const TrendyUserProfiles = () => {
         .skill-tag {
           animation: slideIn 0.6s ease-out forwards;
         }
+
+        .shimmer-effect {
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+          background-size: 200px 100%;
+          animation: shimmer 2s infinite;
+        }
       `}</style>
 
       {/* Floating Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
         {generateFloatingElements()}
         <div
-          className="absolute w-64 h-64 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-3xl"
+          className="absolute w-96 h-96 bg-gradient-to-r from-white/5 to-gray-400/10 rounded-full blur-3xl"
           style={{
             left: `${mousePosition.x}%`,
             top: `${mousePosition.y}%`,
@@ -215,7 +220,7 @@ const TrendyUserProfiles = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2
-            className={`text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent transition-all duration-1000 ${
+            className={`text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent transition-all duration-1000 ${
               isVisible
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-10"
@@ -246,47 +251,48 @@ const TrendyUserProfiles = () => {
           >
             <div className="relative">
               {/* Main Card */}
-              <div
-                className={`relative bg-gradient-to-br ${users[activeUser].gradient} p-1 rounded-3xl card-hover group`}
-              >
-                <div className="bg-gray-900/90 backdrop-blur-lg rounded-3xl p-8 h-full">
+              <div className="relative border-2 border-gray-600 p-1 rounded-3xl card-hover group bg-gradient-to-br from-gray-800 to-gray-900">
+                <div className="bg-black/95 backdrop-blur-lg rounded-3xl p-8 h-full border border-gray-700">
                   {/* Header */}
                   <div className="flex items-start justify-between mb-6">
                     <div className="flex items-center space-x-4">
                       <div className="relative">
-                        <img
-                          src={users[activeUser].avatar}
-                          alt={users[activeUser].name}
-                          className="w-20 h-20 rounded-2xl object-cover border-2 border-white/20 group-hover:scale-110 transition-transform duration-500"
-                        />
+                        <div className="relative overflow-hidden rounded-2xl">
+                          <img
+                            src={users[activeUser].avatar}
+                            alt={users[activeUser].name}
+                            className="w-20 h-20 rounded-2xl object-cover border-2 border-gray-600 group-hover:scale-110 transition-transform duration-500 grayscale"
+                          />
+                          <div className="absolute inset-0 shimmer-effect group-hover:opacity-100 opacity-0 transition-opacity duration-500" />
+                        </div>
                         <div
                           className={`absolute -bottom-1 -right-1 w-6 h-6 ${getStatusColor(
                             users[activeUser].status
-                          )} rounded-full border-2 border-gray-900`}
+                          )} rounded-full border-2 border-black`}
                         />
                         {/* Ripple effect */}
                         <div
                           className={`absolute -bottom-1 -right-1 w-6 h-6 ${getStatusColor(
                             users[activeUser].status
-                          )} rounded-full opacity-75`}
+                          )} rounded-full opacity-50`}
                           style={{ animation: "ripple 2s infinite" }}
                         />
                       </div>
                       <div>
-                        <h3 className="text-2xl font-bold text-white mb-1 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-300 transition-all duration-300">
+                        <h3 className="text-2xl font-bold text-white mb-1 group-hover:text-gray-200 transition-all duration-300">
                           {users[activeUser].name}
                         </h3>
-                        <p className="text-purple-300 font-semibold">
+                        <p className="text-gray-400 font-semibold">
                           {users[activeUser].role}
                         </p>
-                        <p className="text-gray-400 text-sm">
+                        <p className="text-gray-500 text-sm">
                           {users[activeUser].company}
                         </p>
                       </div>
                     </div>
                     <div className="text-right">
                       <div className="flex items-center space-x-1 mb-2">
-                        <span className="text-yellow-400 text-lg">★</span>
+                        <span className="text-white text-lg">★</span>
                         <span className="text-white font-bold">
                           {users[activeUser].rating}
                         </span>
@@ -311,7 +317,7 @@ const TrendyUserProfiles = () => {
                       {users[activeUser].skills.map((skill, index) => (
                         <span
                           key={skill}
-                          className="px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20 skill-tag group-hover:bg-white/20 group-hover:border-white/30 transition-all duration-300"
+                          className="px-3 py-1 bg-gray-800 backdrop-blur-sm rounded-full text-sm text-gray-200 border border-gray-600 skill-tag group-hover:bg-gray-700 group-hover:border-gray-500 group-hover:text-white transition-all duration-300"
                           style={{ animationDelay: `${index * 0.1}s` }}
                         >
                           {skill}
@@ -322,14 +328,20 @@ const TrendyUserProfiles = () => {
 
                   {/* Stats */}
                   <div className="grid grid-cols-2 gap-4 mb-6">
-                    <div className="text-center p-3 bg-white/5 rounded-xl border border-white/10 group-hover:bg-white/10 transition-all duration-300">
+                    <div className="text-center p-3 bg-gray-900 rounded-xl border border-gray-700 group-hover:bg-gray-800 group-hover:border-gray-600 transition-all duration-300">
                       <p className="text-2xl font-bold text-white">
                         {users[activeUser].projects}
                       </p>
                       <p className="text-gray-400 text-sm">Projects</p>
                     </div>
-                    <div className="text-center p-3 bg-white/5 rounded-xl border border-white/10 group-hover:bg-white/10 transition-all duration-300">
-                      <p className="text-2xl font-bold text-green-400">
+                    <div className="text-center p-3 bg-gray-900 rounded-xl border border-gray-700 group-hover:bg-gray-800 group-hover:border-gray-600 transition-all duration-300">
+                      <p
+                        className={`text-2xl font-bold ${
+                          users[activeUser].status === "Available"
+                            ? "text-white"
+                            : "text-gray-400"
+                        }`}
+                      >
                         {users[activeUser].status}
                       </p>
                       <p className="text-gray-400 text-sm">Status</p>
@@ -338,10 +350,10 @@ const TrendyUserProfiles = () => {
 
                   {/* Action Buttons */}
                   <div className="flex space-x-3">
-                    <button className="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold py-3 px-6 rounded-xl hover:from-purple-600 hover:to-pink-600 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
+                    <button className="flex-1 bg-white text-black font-semibold py-3 px-6 rounded-xl hover:bg-gray-200 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
                       View Portfolio
                     </button>
-                    <button className="flex-1 border-2 border-white/30 text-white font-semibold py-3 px-6 rounded-xl hover:bg-white hover:text-gray-900 transform hover:scale-105 transition-all duration-300 backdrop-blur-sm">
+                    <button className="flex-1 border-2 border-gray-600 text-white font-semibold py-3 px-6 rounded-xl hover:bg-white hover:text-black transform hover:scale-105 transition-all duration-300 backdrop-blur-sm">
                       Contact
                     </button>
                   </div>
@@ -349,8 +361,8 @@ const TrendyUserProfiles = () => {
               </div>
 
               {/* Floating Accent Elements */}
-              <div className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-r from-yellow-400 to-pink-400 rounded-full animate-pulse opacity-80" />
-              <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full animate-pulse opacity-60" />
+              <div className="absolute -top-4 -right-4 w-8 h-8 bg-white rounded-full animate-pulse opacity-60" />
+              <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-gray-400 rounded-full animate-pulse opacity-40" />
             </div>
           </div>
 
@@ -372,33 +384,31 @@ const TrendyUserProfiles = () => {
                   onClick={() => setActiveUser(index)}
                 >
                   <div
-                    className={`relative bg-gradient-to-br ${
-                      user.gradient
-                    } p-1 rounded-2xl ${
+                    className={`relative border border-gray-600 p-1 rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 ${
                       index === activeUser
-                        ? "ring-2 ring-white/50 shadow-2xl"
-                        : ""
-                    }`}
+                        ? "ring-2 ring-white/50 shadow-2xl border-white"
+                        : "hover:border-gray-500"
+                    } transition-all duration-300`}
                   >
-                    <div className="bg-gray-900/80 backdrop-blur-sm rounded-2xl p-4 text-center">
+                    <div className="bg-black/80 backdrop-blur-sm rounded-2xl p-4 text-center border border-gray-700">
                       <div className="relative inline-block mb-3">
                         <img
                           src={user.avatar}
                           alt={user.name}
-                          className="w-16 h-16 rounded-xl object-cover border border-white/20 group-hover:scale-110 transition-transform duration-300"
+                          className="w-16 h-16 rounded-xl object-cover border border-gray-600 group-hover:scale-110 transition-transform duration-300 grayscale"
                         />
                         <div
                           className={`absolute -bottom-1 -right-1 w-4 h-4 ${getStatusColor(
                             user.status
-                          )} rounded-full border border-gray-900`}
+                          )} rounded-full border border-black`}
                         />
                       </div>
-                      <h4 className="text-white font-bold text-sm mb-1 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-300 transition-all duration-300">
+                      <h4 className="text-white font-bold text-sm mb-1 group-hover:text-gray-200 transition-all duration-300">
                         {user.name}
                       </h4>
                       <p className="text-gray-400 text-xs">{user.role}</p>
                       <div className="flex items-center justify-center space-x-1 mt-2">
-                        <span className="text-yellow-400 text-xs">★</span>
+                        <span className="text-white text-xs">★</span>
                         <span className="text-white text-xs font-semibold">
                           {user.rating}
                         </span>
@@ -418,8 +428,8 @@ const TrendyUserProfiles = () => {
               key={index}
               className={`h-2 rounded-full transition-all duration-500 ${
                 index === activeUser
-                  ? "w-8 bg-gradient-to-r from-purple-400 to-pink-400"
-                  : "w-2 bg-white/30 hover:bg-white/50"
+                  ? "w-8 bg-gradient-to-r from-white to-gray-400"
+                  : "w-2 bg-gray-600 hover:bg-gray-500"
               }`}
               onClick={() => setActiveUser(index)}
             />
@@ -430,4 +440,4 @@ const TrendyUserProfiles = () => {
   );
 };
 
-export default TrendyUserProfiles;
+export default BlackWhiteUserProfiles;

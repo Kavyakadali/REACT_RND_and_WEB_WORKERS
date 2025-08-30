@@ -9,6 +9,9 @@ import FeatureShowcase from "./FeatureShowcase";
 import BlackWhiteImageSwiperApp from "./ImageSwiper";
 import EnhancedFeaturedProjects from "./EnhancedFeaturedProjects";
 import TrendyUserProfiles from "./TrendyUserProfiles";
+import BlackWhiteUserProfiles from "./TrendyUserProfiles";
+import ScaleInView from "./ServiceSection";
+import TrendyServicesSection from "./ServiceSection";
 
 const AnimationWorld = () => {
   const [currentPhase, setCurrentPhase] = useState(0);
@@ -557,92 +560,8 @@ const AnimationWorld = () => {
       </section>
 
       {/* Services Section */}
-      <section
-        ref={(el) => (sectionsRef.current[1] = el)}
-        className="py-20 bg-gradient-to-b from-gray-900 to-black relative overflow-hidden"
-      >
-        {/* Background Animation */}
-        <div className="absolute inset-0 opacity-20">
-          {[...Array(20)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute h-px bg-gradient-to-r from-transparent via-white to-transparent"
-              style={{
-                top: `${(i + 1) * 5}%`,
-                left: "-100%",
-                right: "-100%",
-                animation: `slideLine ${
-                  2 + Math.random() * 3
-                }s ease-in-out infinite`,
-                animationDelay: `${i * 0.1}s`,
-              }}
-            />
-          ))}
-          {generateFloatingShapes()}
-        </div>
+      <TrendyServicesSection />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-16">
-            <h2
-              data-reveal
-              className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-gray-300 to-gray-200 bg-clip-text text-transparent"
-            >
-              OUR SERVICES
-            </h2>
-            <p
-              className="text-xl text-gray-400 max-w-3xl mx-auto"
-              style={{
-                transform: `translateY(${visibleElements.has(0) ? 0 : 50}px)`,
-                opacity: visibleElements.has(0) ? 1 : 0,
-                transition: "all 1s ease-out 0.3s",
-              }}
-            >
-              Transforming ideas into breathtaking animated experiences
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((service, index) => (
-              <div
-                key={service.title}
-                data-reveal
-                className="group relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-lg border border-gray-700/50 rounded-2xl p-6 hover:border-white/50 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 overflow-hidden"
-                style={{
-                  transform: `translateY(${
-                    visibleElements.has(index + 1) ? 0 : 60
-                  }px)`,
-                  opacity: visibleElements.has(index + 1) ? 1 : 0,
-                  transitionDelay: `${index * 100}ms`,
-                }}
-              >
-                {/* Icon */}
-                <div className="text-5xl mb-6 transform group-hover:scale-125 transition-transform duration-500">
-                  {service.icon}
-                </div>
-
-                <h3 className="text-xl font-bold mb-4 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-300 transition-all duration-500">
-                  {service.title}
-                </h3>
-
-                <p className="text-gray-400 mb-6 group-hover:text-gray-300 transition-colors duration-300">
-                  {service.description}
-                </p>
-
-                <div className="flex items-center justify-between">
-                  <span className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                    {service.count}
-                  </span>
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-r from-white/20 to-gray-300/20 flex items-center justify-center group-hover:from-white group-hover:to-gray-300 transition-all duration-500 transform group-hover:scale-110">
-                    <span className="text-white/60 group-hover:text-black transition-colors duration-300">
-                      →
-                    </span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
       {/* <EnhancedMacBookAnimation /> */}
       <HeroSection />
       <ScrollZoomSection />
@@ -661,7 +580,7 @@ const AnimationWorld = () => {
           <BlackWhiteImageSwiperApp />
         </div>
       </section>
-      <TrendyUserProfiles />
+      <BlackWhiteUserProfiles />
       {/* Contact Section */}
       <section
         ref={(el) => (sectionsRef.current[5] = el)}
