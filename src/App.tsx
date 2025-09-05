@@ -9,6 +9,7 @@ import BulkSearchWebWorkers from "./BulkSearchWebWorkers";
 
 import MultipartUploadAndView from "./MultipartUploadAndView";
 import AnimationWord from "./AnimationWorld";
+import RoyalParallaxWebsite from "./ParallexEffect";
 // import EnhancedMacBookAnimation from "./SmoothanimationSection";
 
 const App = () => {
@@ -27,7 +28,7 @@ const App = () => {
         />
         <Route path="/multipart-upload" element={<MultipartUploadAndView />} />
         <Route path="/animation-world" element={<AnimationWord />} />
-        {/* <Route path="/animation-words" element={<EnhancedMacBookAnimation />} /> */}
+        <Route path="/animation-parallex" element={<RoyalParallaxWebsite />} />
       </Routes>
     </BrowserRouter>
   );

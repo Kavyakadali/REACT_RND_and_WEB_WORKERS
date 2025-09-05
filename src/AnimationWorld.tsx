@@ -566,6 +566,7 @@ const AnimationWorld = () => {
       <HeroSection />
       <ScrollZoomSection />
       <FeatureShowcase />
+
       {/* Projects Section */}
       {/*  */}
       <EnhancedFeaturedProjects />
@@ -611,7 +612,7 @@ const AnimationWorld = () => {
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-12">
             <button
               className="group relative px-12 py-6 bg-gradient-to-r from-white via-gray-200 to-gray-300 rounded-full text-black font-bold text-lg overflow-hidden transform hover:scale-110 transition-all duration-500"
-              onClick={() => navigate("/animation-words")}
+              onClick={() => navigate("/animation-parallex")}
             >
               <span className="relative z-10">START PROJECT</span>
               <div className="absolute inset-0 bg-gradient-to-r from-gray-200/20 to-gray-400/40 transform -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
