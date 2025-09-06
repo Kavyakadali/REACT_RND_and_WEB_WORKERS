@@ -87,7 +87,8 @@ const EnhancedMultipartUpload: React.FC = () => {
   const API_HEADERS = {
     "Content-Type": "application/json",
     Authorization:
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3OTM1ZmNmYmU5Mzk4YWNiOGVjZDRjMSIsImVtYWlsIjoia2F2eWFrYWRhbGkyMDAzQGdtYWlsLmNvbSIsImlhdCI6MTc1MzY2ODE3NCwiZXhwIjoxNzUzNzU0NTc0fQ.lZS0f4hU4TUzokIZFoG6v_BSMb4LiACjy8lzGBel-hw",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3OTM1ZmNmYmU5Mzk4YWNiOGVjZDRjMSIsImVtYWlsIjoia2F2eWFrYWRhbGkyMDAzQGdtYWlsLmNvbSIsImlhdCI6MTc1NzEyNDQ0NCwiZXhwIjoxNzU3MjEwODQ0fQ.apG8mTRLCIlPxOlFEi8aCJJe_3GqSqKvRFCqFf_XM_8",
+    // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3OTM1ZmNmYmU5Mzk4YWNiOGVjZDRjMSIsImVtYWlsIjoia2F2eWFrYWRhbGkyMDAzQGdtYWlsLmNvbSIsImlhdCI6MTc1MzY2ODE3NCwiZXhwIjoxNzUzNzU0NTc0fQ.lZS0f4hU4TUzokIZFoG6v_BSMb4LiACjy8lzGBel-hw",
   };
 
   const CHUNK_SIZE = 5 * 1024 * 1024; // 5MB chunks
